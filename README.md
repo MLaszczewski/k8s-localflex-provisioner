@@ -8,8 +8,9 @@ The Provisioner and Flexvolume Driver are able to create dynamic local-storage f
 
 The Provisioner creates and empty PV with a Flexvolume Driver definition which is then called by kubelet and creates a local folder which is linked into the pod volume folder on the node.
 The node-affinity annotation is then updated to ensure node affinity if a pod is restarted.
+On deletion the PVs are deleted in k8s but not on the filesystem.
 
-Usage:
+###Usage:
 
 Compile provisioner and driver with `make`.
 
