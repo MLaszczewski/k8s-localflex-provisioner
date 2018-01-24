@@ -2,7 +2,7 @@
 
 NOTE: This solution is a proof of concept and will be replaced once Kubernetes can dynamically provision local-storage.
 
-This Provisioner and Flexvolume Driver are able to create dynamic local-storage for Kubernetes.
+The Provisioner and Flexvolume Driver are able to create dynamic local-storage for Kubernetes.
 
 The Provisioner creates and empty PV with a Flexvolume Driver definition which is then called by kubelet and creates a local folder which is linked into the pod volume folder on the node.
 The node-affinity annotation is then updated to ensure node affinity if a pod is restarted.
