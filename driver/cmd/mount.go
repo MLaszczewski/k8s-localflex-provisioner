@@ -24,7 +24,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/monostream/k8s-localflex-provisioner/driver/helper"
 
-	//"k8s.io/api/core/v1"
+	"k8s.io/api/core/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -35,14 +35,14 @@ var MountDir string
 // mountCmd represents the mount command
 var mountCmd = &cobra.Command{
 	Use:   "mount",
-	Short: "creates a directory",
+	Short: "Creates a directory",
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 2 {
 			return errors.New("requires at least 2 args")
 		}
 		return nil
 	},
-	Long: `creates a directory`,
+	Long: `Creates a directory`,
 	Run: func(cmd *cobra.Command, args []string) {
 		var path string
 		var name string
@@ -143,8 +143,7 @@ func updatePersistentVolume(name string) error {
 
 	// update affinity annotation
 	annotations := pv.GetAnnotations()
-	//annotations[v1.AlphaStorageNodeAffinityAnnotation] = "{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchExpressions\":[{\"key\":\"kubernetes.io/hostname\",\"operator\":\"In\",\"values\":[\"" + nodeName + "\"]}]}]}}"
-	annotations["test"] = "{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchExpressions\":[{\"key\":\"kubernetes.io/hostname\",\"operator\":\"In\",\"values\":[\"" + nodeName + "\"]}]}]}}"
+	annotations[v1.AlphaStorageNodeAffinityAnnotation] = "{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchExpressions\":[{\"key\":\"kubernetes.io/hostname\",\"operator\":\"In\",\"values\":[\"" + nodeName + "\"]}]}]}}"
 	pv.SetAnnotations(annotations)
 
 	_, error := volumesClient.Update(pv)

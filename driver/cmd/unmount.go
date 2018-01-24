@@ -23,14 +23,14 @@ import (
 // unmountCmd represents the unmount command
 var unmountCmd = &cobra.Command{
 	Use:   "unmount",
-	Short: "removes a directory",
+	Short: "Removes a directory",
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 1 {
 			return errors.New("requires at least 1 args")
 		}
 		return nil
 	},
-	Long: `removes a directory`,
+	Long: `Removes a directory`,
 	Run: func(cmd *cobra.Command, args []string) {
 		/*err := os.Rename(args[0], args[0] + "-archived")
 		if err != nil {
