@@ -11,7 +11,7 @@ metadata:
 spec:
   containers:
     - name: localflex-provisioner
-      image: 937400120367.dkr.ecr.eu-west-1.amazonaws.com/localflex-provisioner:latest
+      image: monostream/localflex-provisioner:latest
       imagePullPolicy: "Always"
       env:
         - name: NODE_NAME
