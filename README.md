@@ -1,6 +1,8 @@
 # Kubernetes Flexvolume Provisioner and Driver
 
-NOTE: This solution is a proof of concept and will be replaced once Kubernetes can dynamically provision local-storage.
+**NOTE: This solution is a proof of concept and will be replaced once Kubernetes can dynamically provision local-storage.**
+
+***Suggestions for improvements and Pull Requests highly welcome!***
 
 The Provisioner and Flexvolume Driver are able to create dynamic local-storage for Kubernetes.
 
