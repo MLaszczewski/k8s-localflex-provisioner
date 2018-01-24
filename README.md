@@ -17,7 +17,7 @@ mkdir /usr/libexec/kubernetes/kubelet-plugins/volume/exec/monostream.com~localfl
 ```
 and move the flexvolume driver created under `driver/localflex` there.
 
-Make sure that `$HOME/.kube/config` exists. Config is available when running `kubectl config view`.
+Make sure that `$HOME/.kube/config` exists on each node. Config is available when running `kubectl config view`.
 
 Create the provisioner pod
 ```bash
