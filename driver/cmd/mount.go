@@ -46,6 +46,7 @@ var mountCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		var path string
 		var name string
+		var affinity string
 		var _ string
 
 		// get the json options
@@ -59,6 +60,8 @@ var mountCmd = &cobra.Command{
 				path = v.(string)
 			case "name":
 				name = v.(string)
+			case "affinity":
+				affinity = v.(string)
 			case "directory":
 				_ = v.(string)
 			}
@@ -87,14 +90,16 @@ var mountCmd = &cobra.Command{
 			return
 		}
 
-		// update PV
-		err := updatePersistentVolume(name)
-		if err != nil {
-			helper.Handle(helper.Response{
-				Status:  helper.StatusFailure,
-				Message: err.Error(),
-			})
-			return
+		// update PV if affinity is set
+		if affinity != "no" {
+			err := updatePersistentVolume(name)
+			if err != nil {
+				helper.Handle(helper.Response{
+					Status:  helper.StatusFailure,
+					Message: err.Error(),
+				})
+				return
+			}
 		}
 
 		helper.Handle(helper.Response{

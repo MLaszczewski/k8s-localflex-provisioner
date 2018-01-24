@@ -20,7 +20,7 @@ import (
 const (
 	provisionerName =       "monostream.com/localflex-provisioner"
 	pathAnnotation =        "monostream.com/path"
-	nodeAnnotation =        "monostream.com/node"
+	nodeAnnotation =        "monostream.com/provisioner-node"
 	flexDriver =            "monostream.com/localflex"
 	diskPath =              "/tmp"
 )
@@ -28,6 +28,9 @@ const (
 type localFlexProvisioner struct {
 	// the directory to create pv-backing directories in
 	pvDir string
+
+	// define if node affinity annotation should be used
+	affinity string
 
 	// node of this localFlexProvisioner, set to NODE-NAME name. used to identify "this" provisioner's pvs.
 	nodeName string
@@ -56,6 +59,8 @@ func (p *localFlexProvisioner) Provision(options controller.VolumeOptions) (*v1.
 		switch key {
 		case "path":
 			p.pvDir = value
+		case "affinity":
+			p.affinity = value
 		}
 	}
 	pvPath := path.Join(p.pvDir, options.PVName)
@@ -82,6 +87,7 @@ func (p *localFlexProvisioner) Provision(options controller.VolumeOptions) (*v1.
 						"path": pvPath,
 						"directory": p.pvDir,
 						"name": options.PVName,
+						"affinity": p.affinity,
 					},
 				},
 			},

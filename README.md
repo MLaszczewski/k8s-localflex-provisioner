@@ -41,7 +41,7 @@ spec:
 EOF
 ```
 
-Create the StorageClass with correct path to local-storage
+Create the StorageClass with correct path to local-storage. You can define if the node-affinity alpha annotation should be used (feature-gate needs to be set)
 ```bash
 kubectl create -f - <<EOF
 kind: StorageClass
@@ -51,6 +51,7 @@ metadata:
 provisioner: monostream.com/localflex-provisioner
 parameters:
   path: /mnt/disks
+  affinity: "yes"
 EOF
 ```
 

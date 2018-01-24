@@ -32,6 +32,7 @@ metadata:
 provisioner: monostream.com/localflex-provisioner
 parameters:
   path: /mnt/disks
+  affinity: "yes"
 EOF
 ```
 
