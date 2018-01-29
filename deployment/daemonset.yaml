@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: localflex-deploy
+  namespace: kube-system
+spec:
+  template:
+    metadata:
+      name: localflex-deploy
+      labels:
+        app: localflex-deploy
+    spec:
+      containers:
+      - image: monostream/localflex-driver:latest
+        name: localflex-deploy
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /flexmnt
+          name: flexdriver-mount
+      volumes:
+      - name: flexdriver-mount
+        hostPath:
+          path: /usr/libexec/kubernetes/kubelet-plugins/volume/exec/

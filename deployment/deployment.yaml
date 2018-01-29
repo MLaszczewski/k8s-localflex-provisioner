@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: localflex-provisioner
+  namespace: kube-system
+  labels:
+    app: localflex-provisioner
+spec:
+  selector:
+    matchLabels:
+      app: localflex-provisioner
+  template:
+    metadata:
+      name: localflex-provisioner
+      labels:
+        app: localflex-provisioner
+    spec:
+      containers:
+      - name: localflex-provisioner
+        image: monostream/localflex-provisioner:latest
+        imagePullPolicy: "Always"
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName

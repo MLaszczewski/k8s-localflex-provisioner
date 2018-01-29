@@ -18,8 +18,6 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
-  imagePullSecrets:
-   - name: monoregistry
 EOF
 ```
 
