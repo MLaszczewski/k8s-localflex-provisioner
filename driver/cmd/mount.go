@@ -22,6 +22,7 @@ import (
 	"path/filepath"
 
 	"github.com/spf13/cobra"
+	"github.com/kubernetes/pkg/kubelet/apis"
 	"github.com/monostream/k8s-localflex-provisioner/driver/helper"
 
 	"k8s.io/api/core/v1"
@@ -147,8 +148,29 @@ func updatePersistentVolume(name string) error {
 	}
 
 	// update affinity annotation
+	affinity := &v1.NodeAffinity{
+		RequiredDuringSchedulingIgnoredDuringExecution: &v1.NodeSelector{
+			NodeSelectorTerms: []v1.NodeSelectorTerm{
+				{
+					MatchExpressions: []v1.NodeSelectorRequirement{
+						{
+							Key:      apis.LabelHostname,
+							Operator: v1.NodeSelectorOpIn,
+							Values:   []string{nodeName},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	json, err := json.Marshal(*affinity)
+	if err != nil {
+		return errors.New("marshall annotation: " + err.Error())
+	}
+
 	annotations := pv.GetAnnotations()
-	annotations[v1.AlphaStorageNodeAffinityAnnotation] = "{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchExpressions\":[{\"key\":\"kubernetes.io/hostname\",\"operator\":\"In\",\"values\":[\"" + nodeName + "\"]}]}]}}"
+	annotations[v1.AlphaStorageNodeAffinityAnnotation] = string(json)
 	pv.SetAnnotations(annotations)
 
 	_, error := volumesClient.Update(pv)
