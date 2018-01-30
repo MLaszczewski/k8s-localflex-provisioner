@@ -16,6 +16,9 @@ fi
 cp "/$DRIVER" "/flexmnt/$driver_dir/.$DRIVER"
 mv -f "/flexmnt/$driver_dir/.$DRIVER" "/flexmnt/$driver_dir/$DRIVER"
 
+# used for deployment script to know that this has finished
+echo "done"
+
 # this is a workaround to prevent the container from exiting and k8s restarting the daemonset pod
 while : ; do
 	sleep 3600
