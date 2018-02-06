@@ -16,6 +16,7 @@ package cmd
 
 import (
 	"errors"
+	"os/exec"
 	"github.com/spf13/cobra"
 	"github.com/monostream/k8s-localflex-provisioner/driver/helper"
 )
@@ -32,14 +33,14 @@ var unmountCmd = &cobra.Command{
 	},
 	Long: `Removes a directory`,
 	Run: func(cmd *cobra.Command, args []string) {
-		/*err := os.Rename(args[0], args[0] + "-archived")
+		err := unMount(args[0])
 		if err != nil {
 			helper.Handle(helper.Response{
 				Status:  helper.StatusFailure,
 				Message: err.Error(),
 			})
 			return
-		}*/
+		}
 
 		helper.Handle(helper.Response{
 			Status:  helper.StatusSuccess,
@@ -50,4 +51,16 @@ var unmountCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(unmountCmd)
+}
+
+func unMount(target string) error {
+	mountCmd := "/bin/umount"
+
+	cmd := exec.Command(mountCmd, target)
+	output, err := cmd.CombinedOutput()
+
+	if err != nil {
+		return errors.New(string(output[:]))
+	}
+	return nil
 }
