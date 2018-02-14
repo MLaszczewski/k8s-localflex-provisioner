@@ -23,12 +23,12 @@ import (
 	"path/filepath"
 
 	"github.com/spf13/cobra"
-	"github.com/kubernetes/pkg/kubelet/apis"
 	"github.com/monostream/k8s-localflex-provisioner/driver/helper"
 
 	"k8s.io/api/core/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/kubernetes/pkg/kubelet/apis"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
