@@ -3,6 +3,11 @@
 set -euo pipefail
 
 function main() {
+        kubectl create -f $(dirname $(readlink --canonicalize-existing "$0"))/clusterrole.yaml
+        kubectl create -f $(dirname $(readlink --canonicalize-existing "$0"))/clusterrolebinding.yaml
+        kubectl create -f $(dirname $(readlink --canonicalize-existing "$0"))/role.yaml
+        kubectl create -f $(dirname $(readlink --canonicalize-existing "$0"))/rolebinding.yaml
+        kubectl create -f $(dirname $(readlink --canonicalize-existing "$0"))/serviceaccount.yaml
 	kubectl create -f $(dirname $(readlink --canonicalize-existing "$0"))/daemonset.yaml
 	kubectl create -f $(dirname $(readlink --canonicalize-existing "$0"))/deployment.yaml
 	kubectl create -f $(dirname $(readlink --canonicalize-existing "$0"))/storageclass.yaml

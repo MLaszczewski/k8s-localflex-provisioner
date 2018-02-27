@@ -22,3 +22,4 @@ spec:
       - name: flexdriver-mount
         hostPath:
           path: /usr/libexec/kubernetes/kubelet-plugins/volume/exec/
+      serviceAccount: localflex-provisioner

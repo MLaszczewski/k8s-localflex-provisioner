@@ -24,3 +24,4 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
+      serviceAccount: localflex-provisioner
