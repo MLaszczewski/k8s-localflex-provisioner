@@ -2,7 +2,7 @@ apiVersion: storage.k8s.io/v1beta1
 kind: StorageClass
 metadata:
   name: localflex
-provisioner: localflex-provisioner
+provisioner: monostream.com/localflex-provisioner
 parameters:
   path: /mnt/disks
   affinity: "yes"
